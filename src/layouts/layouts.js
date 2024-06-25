@@ -1,47 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import "./layout.css";
 import "boxicons";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { Context } from "../context/UserContext";
 import logo from "../assets/img/logoWhite.png";
 import logo2 from "../assets/img/logoWhite2.png";
+import { Context } from "../context/UserContext";
+import "./layout.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChevronLeft,
-  faChevronDown,
-  faListUl,
-  faBuildingColumns,
-  faIndent,
-  faFileInvoice,
-  faTableList,
-  faUsersGear,
-  faStore,
-  faGear,
-  faMobileScreen,
-  faGlobe,
-  faWrench,
-  faLifeRing,
-  faGaugeHigh,
-  faEye,
-  faPenToSquare,
-  faEnvelope,
-  faBell,
-  faRing,
-  faKey,
-  faPuzzlePiece,
-  faUniversalAccess,
-  faTree,
-  faMessage,
-  faListCheck,
-  faCircleInfo,
-  faPeopleGroup,
-  faVideo,
-  faUser,
   faBars,
+  faFileInvoice,
+  faGear,
+  faTableList,
+  faUser,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Layouts() {
   const { userData } = useContext(Context);
@@ -89,6 +63,21 @@ export default function Layouts() {
     }
   };
 
+  const showMobileMenu = () => {
+    let navbar = document.getElementsByClassName("l-navbar")[0];
+    if (navbar) {
+      navbar.style.cssText = "display: block !important;";
+    }
+  };
+  
+  const closeMobileMenu = () => {
+    let navbar = document.getElementsByClassName("l-navbar")[0];
+    if (navbar) {
+      navbar.style.cssText = "display: none !important;";
+    }
+  };
+
+
   useEffect(() => {
     if (window.innerWidth >= 1068) {
       if (headerToggle) {
@@ -135,6 +124,10 @@ export default function Layouts() {
       {sidebar !== false && (
         <>
           <header className="header mb-4 dropdown" id="header">
+            <div onClick={showMobileMenu} className="mobileButton">
+              aaaaa
+            </div>
+
             <div
               onClick={headerTogglehandle}
               className="header_toggle"
@@ -156,7 +149,7 @@ export default function Layouts() {
                   src={`${process.env.REACT_APP_API_BASE_URL}/api/user/img/${
                     userData && userData.photo
                   }`}
-                  class="userImg"
+                  className="userImg"
                   alt=""
                 />{" "}
               </span>{" "}
@@ -210,6 +203,9 @@ export default function Layouts() {
                       alt="db logo"
                     />
                   </a>
+
+<p onClick={closeMobileMenu}>close</p>
+
                   <a href="#" className="nav_logo">
                     <i className="bx bx-layer nav_logo-icon"></i>{" "}
                     <span className="nav_logo-name">DB admin panel</span>{" "}
@@ -246,17 +242,6 @@ export default function Layouts() {
                         >
                           <FontAwesomeIcon icon={faUser} />
                           <span className="nav_name">Users</span>
-                        </Link>
-
-                        <Link
-                          to="/clients"
-                          onClick={updateActive}
-                          className={`nav_link ${
-                            pathname === "/clients" && "active"
-                          }`}
-                        >
-                          <FontAwesomeIcon icon={faUser} />
-                          <span className="nav_name">Clients</span>
                         </Link>
                       </>
                     )}

@@ -185,23 +185,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          <div className="col-lg-3 col-sm-6 col-12 d-flex">
-            <div className="dashboardBox">
-              <div className="dash-counts">
-                <h4>
-                  <CountUp end={data && data.tasks} />
-                </h4>
-                <h5 className="dashboardTitle">Tasks</h5>
-              </div>
-              <div className="dash-imgs">
-                <FontAwesomeIcon
-                  icon={faListCheck}
-                  size="lg"
-                  className="dashboardIcon"
-                />
-              </div>
-            </div>
-          </div>
+         
           <div className="col-lg-3 col-sm-6 col-12 d-flex">
             <div className="dashboardBox">
               <div className="dash-counts">

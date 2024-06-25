@@ -10,7 +10,17 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { FaDatabase, FaDesktop, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import angular from "../../assets/img/angular.png";
+import javascript from "../../assets/img/javascript.png";
+import laravel from "../../assets/img/laravel.png";
+import node from "../../assets/img/node.png";
+import nophoto from "../../assets/img/nophoto.jpg";
+import php from "../../assets/img/php.png";
+import react from "../../assets/img/react.png";
+import spring from "../../assets/img/spring.png";
+import typescript from "../../assets/img/typescript.png";
 import Breadcrumb from "../../components/breadcrumb";
 import Loading from "../../components/loading";
 import { Context } from "../../context/UserContext";
@@ -42,6 +52,30 @@ const Demos = () => {
 
   const tecnologyFunc = (str) => {
     return str.split(",").map((tech) => tech.trim());
+  };
+
+  const getTechnologyIcon = (tech) => {
+    switch (tech) {
+      case "react":
+        return react;
+      case "angular":
+        return angular;
+      case "spring":
+        return spring;
+      case "node":
+        return node;
+      case "laravel":
+        return laravel;
+      case "php":
+        return php;
+      case "javascript":
+        return javascript;
+      case "typescript":
+        return typescript;
+
+      default:
+        return react;
+    }
   };
 
   const title = "Demos";
@@ -83,36 +117,94 @@ const Demos = () => {
                   className="col-sm-4 col-md-4 col-lg-4 col-xl-3 "
                   key={`demo${i}`}
                 >
-
                   <div className="demoCard">
                     <div>
-                      <div
-                        className="demoCardCover"
-                        style={{
-                          backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${data.imageCover}`,
-                        }}
-                      ></div>
+                      {data.imageCover ? (
+                        <div
+                          className="demoCardCover"
+                          style={{
+                            backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${data.imageCover})`,
+                          }}
+                        >
+                          <div className="tecnologyContainer">
+                            {data.tecnology &&
+                              tecnologyFunc(data.tecnology).map(
+                                (tech, index) => (
+                                  <div key={index} className="tecnologyIcon">
+                                    <img
+                                      className="tecnologyImg"
+                                      src={getTechnologyIcon(tech)}
+                                      alt={tech}
+                                    />
+                                  </div>
+                                )
+                              )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          className="demoCardCover"
+                          style={{
+                            backgroundImage: `url(${nophoto})`,
+                          }}
+                        ></div>
+                      )}
 
-                      <div className="demoMembersContainer">
+                      <div className="demoTextContainer">
                         <p className="demoDetailColumn">
-                          <p className="demoDetailMidTitle">Tecnology:</p>
-
-                          {tecnologyFunc(data.tecnology).map((tech, index) => (
-                            <li key={index}>{tech}</li>
-                          ))}
+                          <span className="demoDetailTitle">{data.title}</span>
+                          <span className="demoDetailSubTitle">
+                            {data.subtitle}
+                          </span>
                         </p>
                       </div>
-
-                      <div className="demoCardTitle">
-                        <p>{data.name}</p>
-                        <div className="demoCardLastUpdate">
-                          last update
-                          <br />
-                          <b>{data.lastUpdate}</b>
-                        </div>
-                      </div>
                     </div>
+                    <div className="demoCardLinkContainer">
+                      {data.frontend && (
+                        <a
+                          href={data.frontend}
+                          target="_blank"
+                          title="frontend link"
+                          rel="noreferrer"
+                          className="linkButtonLink"
+                        >
+                          <div className="linkButton linkButtonFrontend">
+                            <FaDesktop />
+                            <span>Frontend</span>
+                          </div>
+                        </a>
+                      )}
 
+                      {data.backend && (
+                        <a
+                          href={data.backend}
+                          target="_blank"
+                          title="frontend link"
+                          className="linkButtonLink"
+                          rel="noreferrer"
+                        >
+                          <div className="linkButton linkButtonBackend">
+                            <FaDatabase />
+                            <span>Backend</span>
+                          </div>
+                        </a>
+                      )}
+
+                      {data.github && (
+                        <a
+                          href={data.github}
+                          target="_blank"
+                          title="frontend link"
+                          rel="noreferrer"
+                          className="linkButtonLink"
+                        >
+                          <div className="linkButton linkButtonGithub">
+                            <FaGithub />
+                            <span>Github</span>
+                          </div>
+                        </a>
+                      )}
+                    </div>
                     <div className="demoCardButtonContainer">
                       <Link to={`/cover/demo/${data._id}`}>
                         <OverlayTrigger
@@ -159,7 +251,6 @@ const Demos = () => {
                                 icon={faListCheck}
                                 className="demoCardIcon"
                               />
-                              
                             </div>
 
                             <p className="demoCardButtonTitle">Gallery</p>

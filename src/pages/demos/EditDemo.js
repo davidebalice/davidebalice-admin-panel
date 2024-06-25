@@ -1,18 +1,18 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { Context } from "../../context/UserContext";
-import axios from "axios";
-import Swal from "sweetalert2";
-import isAllowed from "../../middlewares/allow";
-import NotPermission from "../Auth/notPermission";
-import Breadcrumb from "../../components/breadcrumb/index";
-import Spacer from "../../components/spacer/index";
-import Divider from "../../components/divider/index";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleChevronLeft,
   faFloppyDisk,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import Breadcrumb from "../../components/breadcrumb/index";
+import Divider from "../../components/divider/index";
+import Spacer from "../../components/spacer/index";
+import { Context } from "../../context/UserContext";
+import isAllowed from "../../middlewares/allow";
+import NotPermission from "../Auth/notPermission";
 
 const EditDemo = () => {
   const navigate = useNavigate();
@@ -190,57 +190,73 @@ const EditDemo = () => {
           <div className="card">
             <div className="card-body">
               <div className="row justify-content-center formContainer">
-                <div className="col-md-6 mt-3">
+                <div className="col-12 mt-3">
                   <label for="name">
-                    <b>Demo name</b>
+                    <b>Demo title</b>
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    name="name"
+                    name="title"
                     required
-                    value={formData.name}
+                    value={formData.title}
                     onChange={handleInput}
                   />
                 </div>
-                <div className="col-md-6 mt-3">
-                  <label for="budget">
-                    <b>Budget</b>
+                <div className="col-12 mt-3">
+                  <label for="subtitle">
+                    <b>Subtitle</b>
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    name="budget"
-                    value={formData.budget}
+                    name="subtitle"
+                    value={formData.subtitle}
                     onChange={handleInput}
                   />
                 </div>
                 <div className="col-md-6 mt-3">
-                  <label for="client">
-                    <b>Client</b>
+                  <label for="tecnology">
+                    <b>Tecnology</b>
                   </label>
-                  <select
+                  <input
+                    type="text"
                     className="form-control"
-                    name="client"
-                    value={formData.client}
-                    required
+                    name="tecnology"
+                    value={formData.tecnology}
                     onChange={handleInput}
-                  >
-                    {clients ? (
-                      clients.map((client) => (
-                        <option key={client._id} value={client._id}>
-                          {client.companyName}
-                        </option>
-                      ))
-                    ) : (
-                      <option value="">Loading clients...</option>
-                    )}
-                    <option value=""> - Select client - </option>
-                  </select>
+                  />
                 </div>
+
+                <div className="col-md-6 mt-3">
+                  <label for="slug">
+                    <b>Slug</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleInput}
+                  />
+                </div>
+
+                <div className="col-md-6 mt-3">
+                  <label for="order">
+                    <b>Order</b>
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="order"
+                    value={formData.order}
+                    onChange={handleInput}
+                  />
+                </div>
+
                 <div className="col-md-6 mt-3"></div>
 
-                <Spacer height={20} />
+                <Spacer height={40} />
 
                 <div className="col-md-12">
                   <label for="summary">
@@ -254,7 +270,7 @@ const EditDemo = () => {
                   ></textarea>
                 </div>
 
-                <Spacer height={20} />
+                <Spacer height={40} />
 
                 <div className="col-md-12">
                   <label for="description">
@@ -269,6 +285,53 @@ const EditDemo = () => {
                   ></textarea>
                 </div>
               </div>
+
+              <div className="col-md-6 mt-3"></div>
+              <Spacer height={40} />
+
+              <div className="row justify-content-center formContainer">
+                <div className="col-12">
+                  <b>Link</b>:
+                </div>
+                <div className="col-md-6 mt-3">
+                  <label for="slug">
+                    <b>Frontend</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="frontend"
+                    value={formData.frontend}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="col-md-6 mt-3">
+                  <label for="slug">
+                    <b>Backend</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="backend"
+                    value={formData.backend}
+                    onChange={handleInput}
+                  />
+                </div>{" "}
+                <div className="col-md-6 mt-3">
+                  <label for="slug">
+                    <b>Github</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="github"
+                    value={formData.github}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="col-md-6 mt-3"></div>
+              </div>
+
               <button
                 onClick={submitForm}
                 className="btn btn-sm saveButton mt-3"
@@ -288,36 +351,7 @@ const EditDemo = () => {
                 borderColor={"#ddd"}
               />
 
-              <div className="formContainer">
-                <img
-                  src={`${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${formData.imageCover}`}
-                  class="userImg"
-                  alt=""
-                />
-                <br /> <br />
-                <label for="photo">
-                  <b>Select file</b>
-                </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  name="imageCover"
-                  required
-                  onChange={handleFile}
-                />
-              </div>
               <div className="col-md-6 mt-3"></div>
-
-              <button
-                onClick={submitFormPhoto}
-                className="btn btn-sm saveButton mt-3"
-              >
-                <FontAwesomeIcon
-                  icon={faFloppyDisk}
-                  className="saveButtonIcon"
-                />{" "}
-                Save
-              </button>
             </div>
           </div>
         </div>

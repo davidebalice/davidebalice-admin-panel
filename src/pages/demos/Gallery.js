@@ -18,6 +18,7 @@ const Gallery = () => {
   const title = "Edit demo";
   const [files, setFiles] = useState([]);
   const [typeGallery, setTypeGallery] = useState("frontend");
+  const [gallery, setGallery] = useState([]);
   const brad = [
     {
       name: "home",
@@ -27,6 +28,7 @@ const Gallery = () => {
     },
   ];
   const { id } = useParams();
+  const [forceUpdate, SetForceUpdate] = useState(0);
   const [formData, setFormData] = useState({
     imageCover: "",
   });
@@ -35,12 +37,13 @@ const Gallery = () => {
     setFiles(e.target.files);
   };
 
-  const handleInput = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleGalleryType = (type) => {
+    setTypeGallery(type);
+    if (type === "backend") {
+      setGallery(formData.gallery_backend);
+    } else {
+      setGallery(formData.gallery_frontend);
+    }
   };
 
   useEffect(() => {
@@ -54,20 +57,16 @@ const Gallery = () => {
       })
       .then((response) => {
         setFormData(response.data.demo);
-        console.log("response.data");
-        console.log(response.data);
+        setGallery(response.data.demo.gallery_frontend);
+        handleGalleryType("frontend");
+        SetForceUpdate(1);
       })
       .catch((error) => {
         console.error("Error:", error);
 
         Swal.fire("Error", error, "error");
       });
-  }, []);
-
-  const handleFile = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  };
+  }, [forceUpdate]);
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -83,10 +82,11 @@ const Gallery = () => {
       for (let i = 0; i < files.length; i++) {
         formData.append("images", files[i]);
       }
+      formData.append("type", typeGallery);
       axios
         .post(
-          `${process.env.REACT_APP_API_BASE_URL}/api/demo/photo/${id}`,
-          { images: formData },
+          `${process.env.REACT_APP_API_BASE_URL}/api/demo/gallery/${id}`,
+          formData,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,10 +122,10 @@ const Gallery = () => {
             </Link>
           </div>
 
-          <button onClick={() => setTypeGallery("frontend")}>frontend</button>
-          <button onClick={() => setTypeGallery("backend")}>backend</button>
-
-          {typeGallery}
+          <button onClick={() => handleGalleryType("frontend")}>
+            frontend
+          </button>
+          <button onClick={() => handleGalleryType("backend")}>backend</button>
 
           <Breadcrumb title={title} brad={brad} />
           <div className="card">
@@ -154,11 +154,17 @@ const Gallery = () => {
                 Save
               </button>
               <br /> <br />
-              <img
-                src={`${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${formData.imageCover}`}
-                style={{ maxWidth: "400px" }}
-                alt=""
-              />
+              <h1>Gallery</h1>
+              <div className="gallery">
+                {gallery &&
+                  gallery.map((image, index) => (
+                    <img
+                      key={index}
+                      src={`${process.env.REACT_APP_API_BASE_URL}/api/demo/gallery/${image}`}
+                      alt={`${index}`}
+                    />
+                  ))}
+              </div>
               <br /> <br />
             </div>
           </div>
