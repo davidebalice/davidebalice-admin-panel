@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
-  const { userData, setUserData, demo } = useContext(Context);
+  const { userData, setUserData, demoMode } = useContext(Context);
   const [file, setFile] = useState(null);
   const token = localStorage.getItem("authToken");
   const title = "Profile";
@@ -78,7 +78,7 @@ const Profile = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",
@@ -120,7 +120,7 @@ const Profile = () => {
 
   const submitPassword = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",
@@ -161,7 +161,7 @@ const Profile = () => {
 
   const submitPhoto = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",

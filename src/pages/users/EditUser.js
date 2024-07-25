@@ -25,7 +25,7 @@ const EditUser = () => {
     },
   ];
   const { id } = useParams();
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const [responseData, setResponseData] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -74,7 +74,7 @@ const EditUser = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",
@@ -121,7 +121,7 @@ const EditUser = () => {
   };
   const submitPassword = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",

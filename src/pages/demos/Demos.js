@@ -7,11 +7,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { FaDatabase, FaDesktop, FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import angular from "../../assets/img/angular.png";
 import javascript from "../../assets/img/javascript.png";
 import laravel from "../../assets/img/laravel.png";
@@ -23,17 +23,23 @@ import spring from "../../assets/img/spring.png";
 import typescript from "../../assets/img/typescript.png";
 import Breadcrumb from "../../components/breadcrumb";
 import Loading from "../../components/loading";
-import { Context } from "../../context/UserContext";
+import Pagination from "../../components/pagination/Pagination";
 
 const Demos = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
+
   const token = localStorage.getItem("authToken");
-  const { userData, demo } = useContext(Context);
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_BASE_URL + "/api/demos", {
+      .get(process.env.REACT_APP_API_BASE_URL + `/api/demos?page=${page}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -43,12 +49,13 @@ const Demos = () => {
       .then((response) => {
         setData(response.data.demos);
         setLoading(false);
-        console.log(response.data.demos);
+        setCurrentPage(response.data.currentPage);
+        setTotalPages(response.data.totalPages);
       })
       .catch((error) => {
         console.error("Error during api call:", error);
       });
-  }, [token]);
+  }, [token, page, reload]);
 
   const tecnologyFunc = (str) => {
     return str.split(",").map((tech) => tech.trim());
@@ -282,6 +289,15 @@ const Demos = () => {
           </>
         )}
       </div>
+
+      {data && data.length > 0 && (
+        <Pagination
+          pageName="demos"
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </>
   );
 };

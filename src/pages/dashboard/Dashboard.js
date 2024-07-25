@@ -1,8 +1,4 @@
-import {
-  faListCheck,
-  faTableList,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTableList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -77,9 +73,13 @@ export default function Hero() {
                   <div className="row">
                     <div className="dashboardCol col-md-3 col-12">
                       <div className="dashboardDescription">
-                        <b className="dashboardText1">DB admin panel</b>
+                        <b className="dashboardText1">
+                          Demo admin panel 
+                          <br />
+                          for davidebalice.dev website
+                        </b>
                         <p className="dashboardText2">
-                          DB admin panel developed in Node and React
+                          Demo admin panel developed in Node and React
                         </p>
 
                         <img
@@ -167,140 +167,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="row ">
-          <div className="col-lg-3 col-sm-6 col-12 d-flex">
-            <div className="dashboardBox">
-              <div className="dash-counts">
-                <h4>
-                  <CountUp end={data && data.demos} />
-                </h4>
-                <h5 className="dashboardTitle">Demos</h5>
-              </div>
-              <div className="dash-imgs">
-                <FontAwesomeIcon
-                  icon={faTableList}
-                  size="2xl"
-                  className="dashboardIcon"
-                />
-              </div>
-            </div>
-          </div>
-         
-          <div className="col-lg-3 col-sm-6 col-12 d-flex">
-            <div className="dashboardBox">
-              <div className="dash-counts">
-                <h4>
-                  <CountUp end={data && data.users} />
-                </h4>
-                <h5 className="dashboardTitle">Users</h5>
-              </div>
-              <div className="dash-imgs">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  size="lg"
-                  className="dashboardIcon"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6 col-12 d-flex">
-            <div className="dashboardBox">
-              <div className="dash-counts">
-                <h4>
-                  <CountUp end={data && data.clients} />
-                </h4>
-                <h5 className="dashboardTitle">Clients</h5>
-              </div>
-              <div className="dash-imgs">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  size="lg"
-                  className="dashboardIcon"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="accordion mb-2" id="transactions_table">
-          <div className="accordion-item">
-            <div className="dashboardActivities" type="button">
-              Last 10 activities
-            </div>
-            <div
-              id="collapseOne3"
-              className="accordion-collapse collapse show"
-              data-bs-parent="#transactions_table"
-            >
-              <div className="accordion-body">
-                <div className="table-responsive my-3">
-                  <Table className="tableRow" hover bordered>
-                    <thead>
-                      <tr>
-                        <th>Date last update</th>
-                        <th>Demo</th>
-                        <th>Task</th>
-                        <th>Activity</th>
-                        <th>User</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.activities &&
-                        data.activities.map((activity) => {
-                          const lastUpdate = new Date(activity.lastUpdate);
-                          const formattedDate = lastUpdate.toLocaleDateString(
-                            [],
-                            {
-                              day: "2-digit",
-                              month: "2-digit",
-                              year: "numeric",
-                            }
-                          );
-                          const formattedTime = lastUpdate.toLocaleTimeString(
-                            [],
-                            { hour: "2-digit", minute: "2-digit" }
-                          );
-
-                          return (
-                            <tr key={activity._id} value={activity._id}>
-                              <td>
-                                {formattedDate}
-                                <br />
-                                {formattedTime}
-                              </td>
-                              <td className="cell">
-                                {activity.task_id.demo_id.name}
-                              </td>
-                              <td className="cell">{activity.task_id.name}</td>
-                              <td className="cell">{activity.name}</td>
-                              <td>
-                                {activity.lastUpdateUser &&
-                                  `${activity.lastUpdateUser.name} ${activity.lastUpdateUser.surname}`}
-                              </td>
-                              <td>
-                                <p
-                                  className="statusContainer"
-                                  style={{
-                                    background:
-                                      activity.status === "Done"
-                                        ? "#0aa70a"
-                                        : "#f57b03",
-                                  }}
-                                >
-                                  {activity.status}
-                                </p>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </Table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      
+        
       </div>
     </>
   );

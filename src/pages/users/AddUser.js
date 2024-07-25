@@ -11,7 +11,7 @@ import { useNavigate, Link } from "react-router-dom";
 const AddUser = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("authToken");
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const title = "Add user";
   const brad = [
     {
@@ -41,7 +41,7 @@ const AddUser = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",

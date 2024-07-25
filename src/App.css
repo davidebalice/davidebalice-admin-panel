@@ -1,3 +1,10 @@
+:root {
+  --main-bg-color: #c3454e;
+  --main-bg-color-hover: #931922;
+  --main-text-color: #333;
+  --secondary-bg-color: #282c34;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +21,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--secondary-bg-color);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9664,9 +9671,10 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .dashboardImg {
-  width: 70% !important;
+  width: 50% !important;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .dashboardLogo {
@@ -9755,6 +9763,11 @@ span.select2-container.select2-container--default.select2-container--open {
   margin: 0 auto;
 }
 
+.sidebarHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
 .sidebarHeader {
   width: 100%;
   display: flex;
@@ -9769,7 +9782,7 @@ span.select2-container.select2-container--default.select2-container--open {
 .addButton {
   display: flex;
   flex-direction: row;
-  background: #24a50b;
+  background: var(--main-bg-color);
   color: #fff;
   gap: 12px;
   align-items: center;
@@ -9787,7 +9800,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .addButton:hover {
-  background: #3bb722;
+  background: var(--main-bg-color-hover);
 }
 
 .addButtonIcon {
@@ -9797,8 +9810,8 @@ span.select2-container.select2-container--default.select2-container--open {
 .addButtonSm {
   display: flex;
   flex-direction: row;
-  background: #24a50b !important;
-  border-color: #24a50b !important;
+  background: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
   color: #fff;
   gap: 12px;
   align-items: center;
@@ -9816,7 +9829,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .addButtonSm:hover {
-  background: #3bb722;
+  background: var(--main-bg-color-hover);
 }
 
 .addButtonSmIcon {
@@ -9826,8 +9839,8 @@ span.select2-container.select2-container--default.select2-container--open {
 .backButton {
   display: flex;
   flex-direction: row;
-  background: #18b0e9 !important;
-  border-color: #18b0e9 !important;
+  background: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
   color: #fff;
   gap: 12px;
   align-items: center;
@@ -9846,7 +9859,7 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .backButton:hover {
-  background: #3bb722;
+  background: var(--main-bg-color-hover) !important;
 }
 
 .backButtonIcon {
@@ -10502,7 +10515,7 @@ label {
 .saveButton {
   display: flex;
   flex-direction: row;
-  background: #25a50b;
+  background: var(--main-bg-color);
   color: #fff;
   gap: 10px;
   align-items: center;
@@ -10519,7 +10532,7 @@ label {
 }
 
 .saveButton:hover {
-  background: #238a0f;
+  background: var(--main-bg-color-hover);
   color: #f1f1f1;
 }
 
@@ -10614,7 +10627,7 @@ label {
   left: 0;
 }
 
-.mobileButton{
+.mobileButton {
   display: none;
 }
 
@@ -10625,16 +10638,16 @@ label {
     top: 0 !important;
     display: none !important;
   }
-  .header_toggle{
+  .header_toggle {
     display: none;
   }
-  .mobileButton{
+  .mobileButton {
     display: block;
   }
-  body{
-    padding:0;
-    margin:0;
-    padding-top:100px !important
+  body {
+    padding: 0;
+    margin: 0;
+    padding-top: 100px !important;
   }
 }
 

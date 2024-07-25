@@ -14,7 +14,7 @@ import NotPermission from "../Auth/notPermission";
 const Gallery = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("authToken");
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const title = "Edit demo";
   const [files, setFiles] = useState([]);
   const [typeGallery, setTypeGallery] = useState("frontend");
@@ -70,7 +70,7 @@ const Gallery = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",

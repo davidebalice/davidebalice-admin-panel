@@ -17,7 +17,7 @@ import NotPermission from "../Auth/notPermission";
 const EditDemo = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("authToken");
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const title = "Edit demo";
   const [file, setFile] = useState(null);
   const brad = [
@@ -77,7 +77,9 @@ const EditDemo = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    console.log("demo");
+    console.log(demoMode);
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",
@@ -100,7 +102,8 @@ const EditDemo = () => {
         .then((response) => {
           console.log("response.data");
           console.log(response.data);
-
+          console.log("response.data.status");
+          console.log(response.data.status);
           if (response.data.status === "success") {
             Swal.fire({
               title: "Demo updated",
@@ -124,39 +127,6 @@ const EditDemo = () => {
               cancelButtonText: "Close",
             });
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  };
-
-  const submitFormPhoto = (e) => {
-    e.preventDefault();
-    if (demo) {
-      Swal.fire({
-        title: "Demo mode",
-        text: "Crud operations are not allowed",
-        icon: "error",
-        cancelButtonText: "Close",
-      });
-    } else {
-      axios
-        .post(
-          `${process.env.REACT_APP_API_BASE_URL}/api/demo/photo/${id}`,
-          { imageCover: file },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((response) => {
-          setFormData({
-            ...formData,
-            imageCover: response.data.imageCover,
-          });
         })
         .catch((error) => {
           console.error("Error:", error);

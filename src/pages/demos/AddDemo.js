@@ -14,7 +14,7 @@ import { Context } from "../../context/UserContext";
 const AddDemo = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("authToken");
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const title = "Add demo";
   const brad = [
     {
@@ -50,7 +50,7 @@ const AddDemo = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",

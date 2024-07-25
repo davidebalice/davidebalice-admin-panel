@@ -1,12 +1,12 @@
-import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
 export const Context = createContext();
 
 export function UserProvider({ children }) {
   const token = localStorage.getItem("authToken");
   const [userData, setUserData] = useState(null);
-  const [demo, setDemo] = useState(false);
+  const [demoMode, setDemoMode] = useState(false);
 
   const login = (userData) => {
     setUserData(userData);
@@ -17,7 +17,6 @@ export function UserProvider({ children }) {
   };
 
   useEffect(() => {
-    console.log(token);
     axios
       .post(
         process.env.REACT_APP_API_BASE_URL + "/api/get/user",
@@ -31,9 +30,16 @@ export function UserProvider({ children }) {
         }
       )
       .then((response) => {
-        console.log(response.data.user);
         setUserData(response.data.user);
-        setDemo(response.data.demo === "false" ? false : true);
+        setDemoMode(
+          response.data.user.demo === "false" ||
+            response.data.user.demo === false
+            ? false
+            : true
+        );
+        console.log("demo nel contesto");
+        console.log(demoMode);
+        console.log(response.data.user.demo);
       })
       .catch((error) => {
         console.error("Error calling api:", error);
@@ -47,7 +53,7 @@ export function UserProvider({ children }) {
         setUserData,
         login,
         logout,
-        demo,
+        demoMode,
       }}
     >
       {children}

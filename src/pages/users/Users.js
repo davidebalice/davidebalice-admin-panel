@@ -1,28 +1,28 @@
-import { useState, useEffect, useContext } from "react";
-import { Context } from "../../context/UserContext";
-import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
-import Breadcrumb from "../../components/breadcrumb/index";
-import Table from "react-bootstrap/Table";
-import Swal from "sweetalert2";
-import EmailModal from "../../components/Modal/EmailModal";
-import Pagination from "../../components/pagination/Pagination";
-import NotPermission from "../Auth/notPermission";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import Spacer from "../../components/spacer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCamera,
+  faCirclePlus,
+  faEnvelope,
   faPenToSquare,
   faTrash,
-  faEnvelope,
-  faCirclePlus,
-  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Table from "react-bootstrap/Table";
+import Tooltip from "react-bootstrap/Tooltip";
+import { Link, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import Breadcrumb from "../../components/breadcrumb/index";
+import EmailModal from "../../components/Modal/EmailModal";
+import Pagination from "../../components/pagination/Pagination";
+import Spacer from "../../components/spacer";
+import { Context } from "../../context/UserContext";
+import NotPermission from "../Auth/notPermission";
 
 const Users = () => {
   const location = useLocation();
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page");
   const token = localStorage.getItem("authToken");
@@ -74,7 +74,7 @@ const Users = () => {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        if (demo) {
+        if (demoMode) {
           Swal.fire({
             title: "Demo mode",
             text: "Crud operations are not allowed",
@@ -154,6 +154,7 @@ const Users = () => {
                           <th>Name</th>
                           <th>Email</th>
                           <th>Role</th>
+                          <th>Demo</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -173,16 +174,7 @@ const Users = () => {
                             </td>
                             <td>{user.email}</td>
                             <td>{user.role}</td>
-                            <td>
-                              <button
-                                onClick={() => null}
-                                className={`btn p-0 px-1 btn-success btn-sm`}
-                              >
-                                {user.label}
-                              </button>
-                            </td>
-                            <td>progress</td>
-                            <td>{user.formattedDeadline}</td>
+                            <td>{user.demo && "Demo user"}</td>
                             <td>
                               <OverlayTrigger
                                 placement="top"

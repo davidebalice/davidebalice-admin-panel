@@ -69,14 +69,13 @@ export default function Layouts() {
       navbar.style.cssText = "display: block !important;";
     }
   };
-  
+
   const closeMobileMenu = () => {
     let navbar = document.getElementsByClassName("l-navbar")[0];
     if (navbar) {
       navbar.style.cssText = "display: none !important;";
     }
   };
-
 
   useEffect(() => {
     if (window.innerWidth >= 1068) {
@@ -125,7 +124,7 @@ export default function Layouts() {
         <>
           <header className="header mb-4 dropdown" id="header">
             <div onClick={showMobileMenu} className="mobileButton">
-              aaaaa
+              <FontAwesomeIcon icon={faBars} style={{ color: "white" }} />
             </div>
 
             <div
@@ -134,9 +133,9 @@ export default function Layouts() {
               id="header-toggle"
             >
               {headerNavManu ? (
-                <FontAwesomeIcon icon={faBars} />
+                <FontAwesomeIcon icon={faBars} style={{ color: "white" }} />
               ) : (
-                <FontAwesomeIcon icon={faX} />
+                <FontAwesomeIcon icon={faX} style={{ color: "white" }} />
               )}{" "}
             </div>
             <div
@@ -186,26 +185,29 @@ export default function Layouts() {
             >
               <nav className="nav">
                 <div>
-                  {" "}
-                  <a
-                    href="#"
-                    className="sidebarHeader"
-                    style={{
-                      justifyContent: headerToggle ? "center" : "left",
-                      width: headerToggle ? "100%" : "50px",
-                    }}
-                  >
-                    <img
-                      src={headerToggle ? logo : logo2}
-                      className={
-                        headerToggle ? "logoSidebar" : "logoSidebarClosed"
-                      }
-                      alt="db logo"
-                    />
-                  </a>
+                  <div class="sidebarHeaderContainer">
+                    <a
+                      href="#"
+                      className="sidebarHeader"
+                      style={{
+                        justifyContent: headerToggle ? "center" : "left",
+                        width: headerToggle ? "100%" : "50px",
+                      }}
+                    >
+                      <img
+                        src={headerToggle ? logo : logo2}
+                        className={
+                          headerToggle ? "logoSidebar" : "logoSidebarClosed"
+                        }
+                        alt="db logo"
+                      />
+                    </a>
 
-<p onClick={closeMobileMenu}>close</p>
-
+                    <p onClick={closeMobileMenu} className="mobileButton">
+                      {" "}
+                      <FontAwesomeIcon icon={faX} style={{ color: "white" }} />
+                    </p>
+                  </div>
                   <a href="#" className="nav_logo">
                     <i className="bx bx-layer nav_logo-icon"></i>{" "}
                     <span className="nav_logo-name">DB admin panel</span>{" "}

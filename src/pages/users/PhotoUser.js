@@ -25,7 +25,7 @@ const PhotoUser = () => {
   ];
   const { id } = useParams();
   const [responseData, setResponseData] = useState(null);
-  const { userData, demo } = useContext(Context);
+  const { userData, demoMode } = useContext(Context);
   const [formData, setFormData] = useState({
     photo: "",
   });
@@ -66,7 +66,7 @@ const PhotoUser = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (demo) {
+    if (demoMode) {
       Swal.fire({
         title: "Demo mode",
         text: "Crud operations are not allowed",
