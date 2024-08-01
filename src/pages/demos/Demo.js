@@ -42,10 +42,6 @@ const Demo = () => {
         setTasks(response.data.tasks);
         setMembers(response.data.demo.members);
         setLoading(false);
-        console.log("response.data.demo");
-        console.log(response.data.demo);
-        console.log(response.data.tasks);
-        console.log(response.data.demo.members);
       })
       .catch((error) => {
         console.error("Error during api call:", error);

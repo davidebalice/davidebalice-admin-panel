@@ -1,12 +1,3 @@
-import "boxicons";
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import logo from "../assets/img/logoWhite.png";
-import logo2 from "../assets/img/logoWhite2.png";
-import { Context } from "../context/UserContext";
-import "./layout.css";
-
 import {
   faBars,
   faFileInvoice,
@@ -16,18 +7,29 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import "boxicons";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import logo from "../assets/img/logoWhite.png";
+import logo2 from "../assets/img/logoWhite2.png";
+import { Context } from "../context/UserContext";
+import "./layout.css";
 
 export default function Layouts() {
   const { userData } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
+  const [tecnologies, setTecnologies] = useState([]);
   const [render, setRender] = useState(true);
   const [headerToggle, setHeaderToggle] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [headerNavManu, setheaderNavManu] = useState(true);
   const defaultOpenSidebar = localStorage.getItem("defaultOpenSidebar");
   const mainBody = document.getElementById("mainBody");
+  const token = localStorage.getItem("authToken");
 
   useEffect(() => {
     if (
@@ -50,6 +52,23 @@ export default function Layouts() {
       setHeaderToggle(false);
       setheaderNavManu(true);
     }
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_BASE_URL + `/api/tecnologies`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((response) => {
+        setTecnologies(response.data.data.tecnologies);
+      })
+      .catch((error) => {
+        console.error("Error during api call:", error);
+      });
   }, []);
 
   const headerTogglehandle = () => {
@@ -185,7 +204,7 @@ export default function Layouts() {
             >
               <nav className="nav">
                 <div>
-                  <div class="sidebarHeaderContainer">
+                  <div className="sidebarHeaderContainer">
                     <a
                       href="#"
                       className="sidebarHeader"
@@ -216,6 +235,7 @@ export default function Layouts() {
                     <Link
                       onClick={updateActive}
                       to="/"
+                      key="dashboard"
                       className={`nav_link ${pathname === "/" && "active"}`}
                     >
                       <i className="bx bx-grid-alt nav_icon"></i>
@@ -224,6 +244,7 @@ export default function Layouts() {
 
                     <Link
                       to="/demos"
+                      key="demos"
                       onClick={updateActive}
                       className={`nav_link ${
                         pathname === "/demos" && "active"
@@ -233,11 +254,20 @@ export default function Layouts() {
                       <span className="nav_name">Demo & Code</span>
                     </Link>
 
+                    <div className="tecnologiesContainer">
+                      {tecnologies.map((tec, i) => (
+                        <Link to={`/demos?tecnology=${tec}`}>
+                          <p>{tec}</p>
+                        </Link>
+                      ))}
+                    </div>
+
                     {userData && userData.role === "admin" && (
                       <>
                         <Link
                           to="/users"
                           onClick={updateActive}
+                          key="users"
                           className={`nav_link ${
                             pathname === "/users" && "active"
                           }`}
@@ -251,6 +281,7 @@ export default function Layouts() {
                     <Link
                       onClick={updateActive}
                       to="/profile"
+                      key="profile"
                       className={`nav_link ${
                         pathname === "/profile" && "active"
                       }`}
@@ -258,7 +289,12 @@ export default function Layouts() {
                       <FontAwesomeIcon icon={faGear} />
                       <span className="nav_name">Profile</span>
                     </Link>
-                    <Link onClick={logoutHandle} to="#" className={`nav_link `}>
+                    <Link
+                      onClick={logoutHandle}
+                      key="logout"
+                      to="#"
+                      className={`nav_link `}
+                    >
                       <FontAwesomeIcon icon={faFileInvoice} />
                       <span className="nav_name">Logout</span>
                     </Link>

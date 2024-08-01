@@ -1,17 +1,18 @@
 import {
   faCirclePlus,
-  faListCheck,
+  faImage,
   faNoteSticky,
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { FaDatabase, FaDesktop, FaGithub } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 import angular from "../../assets/img/angular.png";
 import javascript from "../../assets/img/javascript.png";
 import laravel from "../../assets/img/laravel.png";
@@ -24,11 +25,14 @@ import typescript from "../../assets/img/typescript.png";
 import Breadcrumb from "../../components/breadcrumb";
 import Loading from "../../components/loading";
 import Pagination from "../../components/pagination/Pagination";
+import { Context } from "../../context/UserContext";
 
 const Demos = () => {
+  const { userData, demoMode } = useContext(Context);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page");
+  const tecnology = searchParams.get("tecnology");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState(1);
@@ -38,8 +42,14 @@ const Demos = () => {
   const token = localStorage.getItem("authToken");
 
   useEffect(() => {
+    let apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/demos?page=${page}`;
+
+    if (tecnology) {
+      apiUrl += `&tecnology=${tecnology}`;
+    }
+
     axios
-      .get(process.env.REACT_APP_API_BASE_URL + `/api/demos?page=${page}`, {
+      .get(apiUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -55,7 +65,7 @@ const Demos = () => {
       .catch((error) => {
         console.error("Error during api call:", error);
       });
-  }, [token, page, reload]);
+  }, [token, page, reload, tecnology]);
 
   const tecnologyFunc = (str) => {
     return str.split(",").map((tech) => tech.trim());
@@ -83,6 +93,48 @@ const Demos = () => {
       default:
         return react;
     }
+  };
+
+  const onDeleteDemo = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Delete this Demo?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (demoMode) {
+          Swal.fire({
+            title: "Demo mode",
+            text: "Crud operations are not allowed",
+            icon: "error",
+            cancelButtonText: "Close",
+          });
+        } else {
+          axios
+            .post(
+              `${process.env.REACT_APP_API_BASE_URL}/api/demo/delete/${id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+              }
+            )
+            .then((response) => {
+              setReload((prevCount) => prevCount + 1);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+
+              Swal.fire("Error", error, "error");
+            });
+        }
+      }
+    });
   };
 
   const title = "Demos";
@@ -221,10 +273,12 @@ const Demos = () => {
                           }
                         >
                           <button className="btn btn-primary btn-sm demoCardButton">
-                            <FontAwesomeIcon
-                              icon={faNoteSticky}
-                              className="demoCardIcon"
-                            />
+                            <div className="text-black iconContainer">
+                              <FontAwesomeIcon
+                                icon={faNoteSticky}
+                                className="demoCardIcon"
+                              />
+                            </div>
                             <p className="demoCardButtonTitle">Cover</p>
                           </button>
                         </OverlayTrigger>
@@ -238,10 +292,12 @@ const Demos = () => {
                           }
                         >
                           <button className="btn btn-primary btn-sm demoCardButton">
-                            <FontAwesomeIcon
-                              icon={faPenToSquare}
-                              className="demoCardIcon"
-                            />
+                            <div className="text-black iconContainer">
+                              <FontAwesomeIcon
+                                icon={faPenToSquare}
+                                className="demoCardIcon"
+                              />
+                            </div>
                             <p className="demoCardButtonTitle">Edit</p>
                           </button>
                         </OverlayTrigger>
@@ -253,19 +309,22 @@ const Demos = () => {
                           overlay={<Tooltip className="tooltip">Tasks</Tooltip>}
                         >
                           <button className="btn btn-primary btn-sm demoCardButton">
-                            <div className="text-black">
+                            <div className="text-black iconContainer">
                               <FontAwesomeIcon
-                                icon={faListCheck}
+                                icon={faImage}
                                 className="demoCardIcon"
                               />
                             </div>
-
                             <p className="demoCardButtonTitle">Gallery</p>
                           </button>
                         </OverlayTrigger>
                       </Link>
 
-                      <Link to={`/demo/delete/${data._id}`}>
+                      <Link
+                        onClick={() => {
+                          onDeleteDemo(data._id);
+                        }}
+                      >
                         <OverlayTrigger
                           placement="top"
                           overlay={
@@ -273,10 +332,12 @@ const Demos = () => {
                           }
                         >
                           <button className="btn btn-primary btn-sm demoCardButton bg-red">
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              className="demoCardIcon"
-                            />
+                            <div className="text-black iconContainer">
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="demoCardIcon"
+                              />
+                            </div>
                             <p className="demoCardButtonTitle">Delete</p>
                           </button>
                         </OverlayTrigger>

@@ -4050,7 +4050,8 @@ table.dataTable > thead .sorting_desc_disabled:before {
 }
 
 .paginationItemActive {
-  background-color: #18b0e9;
+  background-color: var(--main-bg-color);
+  border-color: var(--main-bg-color);
 }
 
 .paginationItem:hover {
@@ -10265,6 +10266,12 @@ label {
   border-color: #d1d1d1 !important;
 }
 
+.iconContainer {
+  height: 30px;
+  align-items: center;
+  display: flex;
+}
+
 .demoDetailTitle {
   font-size: 22px;
   font-weight: bold;
@@ -10631,6 +10638,11 @@ label {
   display: none;
 }
 
+.buttonGalleryContainer {
+  display: flex;
+  gap: 6px;
+}
+
 @media (max-width: 767px) {
   .l-navbar {
     width: 100% !important;
@@ -10650,6 +10662,63 @@ label {
     padding-top: 100px !important;
   }
 }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.galleyItem {
+  padding: 10px;
+  height: 300x;
+  overflow: hidden;
+  position: relative;
+}
+
+.galleyImg {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  outline: 1px solid #ddd;
+}
+
+.galleryDelete {
+  position: absolute;
+  right: 20px;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.galleryDelete:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.galleryDeleteIcon {
+  color: red;
+  font-size: 22px;
+  pointer-events: none;
+}
+
+.swal2-confirm {
+  background-color: var(--main-bg-color) !important;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+}
+
+.swal2-confirm:hover {
+  background-color: var(main-bg-color-hover) !important;
+}
+
 
 /*# sourceMappingURL=style.css.map */
 
