@@ -7957,6 +7957,24 @@ span.select2-container.select2-container--default.select2-container--open {
   font-weight: 700;
 }
 
+.login-button{
+  background-color: var(--main-bg-color);
+  color:white;
+  width:100%
+}
+
+.login-button:hover{
+  background-color: var(--main-bg-color-hover) !important;
+  color:white
+}
+
+.login-demo-data{
+  margin-top:30px;
+  border-top:1px solid #ddd;
+  font-size:13px;
+  padding-top: 20px;
+}
+
 .login-wrapper {
   width: 100%;
   overflow: hidden;
@@ -9880,6 +9898,7 @@ span.select2-container.select2-container--default.select2-container--open {
   transform: translateY(0);
   transition: all 0.2s ease;
   display: flex !important;
+  position:relative;
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 30px;
@@ -10614,9 +10633,10 @@ label {
 .tecnologyContainer {
   position: absolute;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 6px;
-  text-align: right;
+  text-align: start;
+  left:10px;
 }
 
 .tecnologyImg {
@@ -10717,6 +10737,23 @@ label {
 
 .swal2-confirm:hover {
   background-color: var(main-bg-color-hover) !important;
+}
+
+.fsBand{
+  position:absolute;
+  background: linear-gradient(to right, #000000, #434343, #000000);
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  width:200px;
+  transform: rotate(38deg);
+  margin-top: 10px;
+  right:-54px;
+  height:36px;
+  display: flex;
+  color: white;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
 }
 
 

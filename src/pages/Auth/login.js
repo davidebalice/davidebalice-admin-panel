@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import logo from "../../assets/img/logo.png";
+import react_node from "../../assets/img/react_node.png";
 import { Context } from "../../context/UserContext";
 
 const Login = () => {
@@ -68,8 +69,22 @@ const Login = () => {
             <div className="col-md-5">
               <div className="card">
                 <div className="card-header border-bottom text-center">
-                  <h2>Login</h2>
+                  <img src={logo} alt="db logo" style={{ width: "150px" }} />
+
+                  <div className="dashboardDescription">
+                    <b className="dashboardText1">
+                      Demo admin panel
+                      <br />
+                      for davidebalice.dev website
+                    </b>
+                    <img
+                      src={react_node}
+                      className="dashboardLogo mt-2"
+                      alt="dashboard logo"
+                    />
+                  </div>
                 </div>
+
                 <div className="card-body">
                   <input
                     type="email"
@@ -87,20 +102,29 @@ const Login = () => {
                     value={formData.password}
                     onChange={handleInput}
                   />
-                  <ReCAPTCHA
-                    sitekey={process.env.REACT_APP_SITE_KEY}
-                    onChange={onChange}
-                  />
+
                   <button
                     type="sumit"
                     onClick={loginHandle}
-                    className="btn btn-primary mt-2"
+                    className="btn  mt-2 login-button"
                   >
                     Login
                   </button>
-                  <Link to="/forgot-password">
+
+                  <div className="login-demo-data">
+                    <b> Demo data</b>:
+                    <br />
+                    <br />
+                    email: mario@rossi.it
+                    <br />
+                    password: 12345678
+                  </div>
+
+                  {/*
+                    <Link to="/forgot-password">
                     <p>Forgot Password</p>
                   </Link>
+                    */}
                 </div>
               </div>
             </div>

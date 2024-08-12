@@ -1,6 +1,7 @@
 import {
   faCirclePlus,
   faImage,
+  faLayerGroup,
   faNoteSticky,
   faPenToSquare,
   faTrash,
@@ -187,6 +188,13 @@ const Demos = () => {
                             backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${data.imageCover})`,
                           }}
                         >
+                          {data.fullstack && (
+                            <div className="fsBand">
+                              <FontAwesomeIcon icon={faLayerGroup} />
+                              <span>Full stack</span>
+                            </div>
+                          )}
+
                           <div className="tecnologyContainer">
                             {data.tecnology &&
                               tecnologyFunc(data.tecnology).map(
