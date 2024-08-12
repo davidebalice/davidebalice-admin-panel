@@ -1,6 +1,6 @@
 import {
   faCircleChevronLeft,
-  faFloppyDisk,
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -116,7 +116,6 @@ const CoverDemo = () => {
           <div className="card">
             <div className="card-body">
               <div className="formContainer">
-              
                 <label for="photo">
                   <b>Select file</b>
                 </label>
@@ -133,19 +132,16 @@ const CoverDemo = () => {
                 onClick={submitForm}
                 className="btn btn-sm saveButton mt-3"
               >
-                <FontAwesomeIcon
-                  icon={faFloppyDisk}
-                  className="saveButtonIcon"
-                />{" "}
-                Save
+                <FontAwesomeIcon icon={faUpload} className="saveButtonIcon" />{" "}
+                Upload
               </button>
               <br /> <br />
               <img
-                  src={`${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${formData.imageCover}`}
-                  style={{maxWidth:"400px"}}
-                  alt=""
-                />
-                <br /> <br />
+                src={`${process.env.REACT_APP_API_BASE_URL}/api/demo/cover/${formData.imageCover}`}
+                style={{ maxWidth: "400px" }}
+                alt=""
+              />
+              <br /> <br />
             </div>
           </div>
         </div>

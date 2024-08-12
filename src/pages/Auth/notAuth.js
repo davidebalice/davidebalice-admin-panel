@@ -1,4 +1,19 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+const NotAuth = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/login");
+  }, [navigate]);
+
+  return null;
+};
+
+export default NotAuth;
+
+/*
 const notAuth = () => {
   return (
     <>
@@ -8,7 +23,7 @@ const notAuth = () => {
           style={{ height: "65vh" }}
         >
           <p className="notAuth">User not authenticated
-            <br/>   
+            <br/>
             <Link className="dropdown-item singIn" to="/login">
               Sign in
             </Link>
@@ -18,4 +33,4 @@ const notAuth = () => {
     </>
   );
 };
-export default notAuth;
+export default notAuth;*/

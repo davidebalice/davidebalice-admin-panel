@@ -19,17 +19,15 @@ const EditDemo = () => {
   const token = localStorage.getItem("authToken");
   const { userData, demoMode } = useContext(Context);
   const title = "Edit demo";
-  const [file, setFile] = useState(null);
   const brad = [
     {
-      name: "home",
+      name: "Edit demo",
     },
     {
       name: title,
     },
   ];
   const { id } = useParams();
-  const [clients, setClients] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     budget: "",
@@ -37,20 +35,16 @@ const EditDemo = () => {
     summary: "",
     description: "",
     owner: "",
+    fullstack: false,
     imageCover: "",
   });
 
   const handleInput = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type, checked } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
-  };
-
-  const handleFile = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
   };
 
   useEffect(() => {
@@ -64,7 +58,6 @@ const EditDemo = () => {
       })
       .then((response) => {
         setFormData(response.data.demo);
-        setClients(response.data.clients);
         console.log("response.data");
         console.log(response.data);
       })
@@ -221,6 +214,20 @@ const EditDemo = () => {
                     name="order"
                     value={formData.order}
                     onChange={handleInput}
+                  />
+                </div>
+
+                <div className="col-md-6 mt-3">
+                  <label for="order">
+                    <b>Full stack</b>
+                  </label>
+                  <br />
+                  <input
+                    type="checkbox"
+                    name="fullstack"
+                    checked={formData.fullstack}
+                    onChange={handleInput}
+                    style={{width:"24px",height:"24px",marginTop:"6px"}}
                   />
                 </div>
 

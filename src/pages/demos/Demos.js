@@ -73,25 +73,27 @@ const Demos = () => {
 
   const getTechnologyIcon = (tech) => {
     switch (tech) {
-      case "react":
+      case "React":
         return react;
-      case "angular":
+      case "React native":
+        return react;
+      case "Angular":
         return angular;
-      case "spring":
+      case "Spring":
         return spring;
-      case "node":
+      case "Node":
         return node;
-      case "laravel":
+      case "Laravel":
         return laravel;
-      case "php":
+      case "Php":
         return php;
-      case "javascript":
+      case "Javascript":
         return javascript;
-      case "typescript":
+      case "Typescript":
         return typescript;
 
       default:
-        return react;
+        return null;
     }
   };
 

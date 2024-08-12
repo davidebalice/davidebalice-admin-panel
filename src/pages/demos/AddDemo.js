@@ -37,14 +37,14 @@ const AddDemo = () => {
     frontend: "",
     backend: "",
     github: "",
+    fullstack: false,
   });
 
-
   const handleInput = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type, checked } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -168,6 +168,20 @@ const AddDemo = () => {
                   onChange={handleInput}
                 />
               </div>
+
+              <div className="col-md-6 mt-3">
+                  <label for="order">
+                    <b>Full stack</b>
+                  </label>
+                  <br />
+                  <input
+                    type="checkbox"
+                    name="fullstack"
+                    checked={formData.fullstack}
+                    onChange={handleInput}
+                    style={{width:"24px",height:"24px",marginTop:"6px"}}
+                  />
+                </div>
 
               <div className="col-md-6 mt-3"></div>
 
