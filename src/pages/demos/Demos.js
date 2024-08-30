@@ -15,6 +15,7 @@ import { FaDatabase, FaDesktop, FaGithub } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import angular from "../../assets/img/angular.png";
+import three from "../../assets/img/three.png";
 import javascript from "../../assets/img/javascript.png";
 import laravel from "../../assets/img/laravel.png";
 import node from "../../assets/img/node.png";
@@ -86,6 +87,8 @@ const Demos = () => {
         return node;
       case "Laravel":
         return laravel;
+      case "Three":
+        return three;
       case "Php":
         return php;
       case "Javascript":
@@ -269,7 +272,23 @@ const Demos = () => {
                         >
                           <div className="linkButton linkButtonGithub">
                             <FaGithub />
-                            <span>Github</span>
+                            {data.githubBackend ? (<span>Frontend</span>) : ( <span>Github</span>)}
+                          </div>
+                        </a>
+                      )}
+
+                      
+                      {data.githubBackend && (
+                        <a
+                          href={data.githubBackend}
+                          target="_blank"
+                          title="frontend link"
+                          rel="noreferrer"
+                          className="linkButtonLink"
+                        >
+                          <div className="linkButton linkButtonGithub">
+                            <FaGithub />
+                            {data.github ? (<span>Backend</span>) : ( <span>Github</span>)}
                           </div>
                         </a>
                       )}

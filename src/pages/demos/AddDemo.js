@@ -37,6 +37,7 @@ const AddDemo = () => {
     frontend: "",
     backend: "",
     github: "",
+    githubBackend: "",
     fullstack: false,
   });
 
@@ -244,7 +245,7 @@ const AddDemo = () => {
                   value={formData.backend}
                   onChange={handleInput}
                 />
-              </div>{" "}
+              </div>
               <div className="col-md-6 mt-3">
                 <label for="slug">
                   <b>Github</b>
@@ -257,7 +258,18 @@ const AddDemo = () => {
                   onChange={handleInput}
                 />
               </div>
-              <div className="col-md-6 mt-3"></div>
+              <div className="col-md-6 mt-3">
+                <label for="slug">
+                  <b>Github backend</b>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="githubBackend"
+                  value={formData.githubBackend}
+                  onChange={handleInput}
+                />
+              </div>
             </div>
 
             <button

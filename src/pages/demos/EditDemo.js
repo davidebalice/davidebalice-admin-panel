@@ -30,11 +30,8 @@ const EditDemo = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     name: "",
-    budget: "",
-    client: "",
     summary: "",
     description: "",
-    owner: "",
     fullstack: false,
     imageCover: "",
   });
@@ -306,7 +303,18 @@ const EditDemo = () => {
                     onChange={handleInput}
                   />
                 </div>
-                <div className="col-md-6 mt-3"></div>
+                <div className="col-md-6 mt-3">
+                  <label for="slug">
+                    <b>Github backend</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="githubBackend"
+                    value={formData.githubBackend}
+                    onChange={handleInput}
+                  />
+                </div>
               </div>
 
               <button
