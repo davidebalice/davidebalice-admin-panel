@@ -34,10 +34,12 @@ const AddDemo = () => {
     order: "",
     summary: "",
     description: "",
+    description_it: "",
     frontend: "",
     backend: "",
     github: "",
     githubBackend: "",
+    apk: "",
     fullstack: false,
   });
 
@@ -171,23 +173,24 @@ const AddDemo = () => {
               </div>
 
               <div className="col-md-6 mt-3">
-                  <label for="order">
-                    <b>Full stack</b>
-                  </label>
-                  <br />
-                  <input
-                    type="checkbox"
-                    name="fullstack"
-                    checked={formData.fullstack}
-                    onChange={handleInput}
-                    style={{width:"24px",height:"24px",marginTop:"6px"}}
-                  />
-                </div>
+                <label for="order">
+                  <b>Full stack</b>
+                </label>
+                <br />
+                <input
+                  type="checkbox"
+                  name="fullstack"
+                  checked={formData.fullstack}
+                  onChange={handleInput}
+                  style={{ width: "24px", height: "24px", marginTop: "6px" }}
+                />
+              </div>
 
               <div className="col-md-6 mt-3"></div>
 
               <Spacer height={40} />
 
+              {/*
               <div className="col-md-12">
                 <label for="summary">
                   <b>Summary</b>
@@ -201,15 +204,31 @@ const AddDemo = () => {
               </div>
 
               <Spacer height={40} />
+              */}
 
               <div className="col-md-12">
                 <label for="description">
-                  <b>Full description</b>
+                  <b>Description (En)</b>
                 </label>
                 <textarea
                   className="form-control"
                   name="description"
                   value={formData.description}
+                  onChange={handleInput}
+                  style={{ height: "150px" }}
+                ></textarea>
+              </div>
+
+              <Spacer height={40} />
+
+              <div className="col-md-12">
+                <label for="description_it">
+                  <b>Description (It)</b>
+                </label>
+                <textarea
+                  className="form-control"
+                  name="description_it"
+                  value={formData.description_it}
                   onChange={handleInput}
                   style={{ height: "150px" }}
                 ></textarea>
@@ -270,6 +289,21 @@ const AddDemo = () => {
                   onChange={handleInput}
                 />
               </div>
+
+              <div className="col-md-6 mt-3">
+                <label for="apk">
+                  <b>Apk</b>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="apk"
+                  value={formData.apk}
+                  onChange={handleInput}
+                />
+              </div>
+
+              <div className="col-md-6 mt-3"></div>
             </div>
 
             <button

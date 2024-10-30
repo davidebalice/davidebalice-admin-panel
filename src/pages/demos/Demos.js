@@ -15,14 +15,16 @@ import { FaDatabase, FaDesktop, FaGithub } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import angular from "../../assets/img/angular.png";
-import three from "../../assets/img/three.png";
 import javascript from "../../assets/img/javascript.png";
 import laravel from "../../assets/img/laravel.png";
+import nextjs from "../../assets/img/nextjs.png";
 import node from "../../assets/img/node.png";
 import nophoto from "../../assets/img/nophoto.jpg";
 import php from "../../assets/img/php.png";
 import react from "../../assets/img/react.png";
 import spring from "../../assets/img/spring.png";
+import springBoot from "../../assets/img/springBoot.png";
+import three from "../../assets/img/three.png";
 import typescript from "../../assets/img/typescript.png";
 import Breadcrumb from "../../components/breadcrumb";
 import Loading from "../../components/loading";
@@ -83,8 +85,12 @@ const Demos = () => {
         return angular;
       case "Spring":
         return spring;
+      case "Spring boot":
+        return springBoot;
       case "Node":
         return node;
+      case "Next.js":
+        return nextjs;
       case "Laravel":
         return laravel;
       case "Three":
@@ -272,12 +278,15 @@ const Demos = () => {
                         >
                           <div className="linkButton linkButtonGithub">
                             <FaGithub />
-                            {data.githubBackend ? (<span>Frontend</span>) : ( <span>Github</span>)}
+                            {data.githubBackend ? (
+                              <span>Frontend</span>
+                            ) : (
+                              <span>Github</span>
+                            )}
                           </div>
                         </a>
                       )}
 
-                      
                       {data.githubBackend && (
                         <a
                           href={data.githubBackend}
@@ -288,7 +297,11 @@ const Demos = () => {
                         >
                           <div className="linkButton linkButtonGithub">
                             <FaGithub />
-                            {data.github ? (<span>Backend</span>) : ( <span>Github</span>)}
+                            {data.github ? (
+                              <span>Backend</span>
+                            ) : (
+                              <span>Github</span>
+                            )}
                           </div>
                         </a>
                       )}

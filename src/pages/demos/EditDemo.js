@@ -32,6 +32,7 @@ const EditDemo = () => {
     name: "",
     summary: "",
     description: "",
+    description_it: "",
     fullstack: false,
     imageCover: "",
   });
@@ -224,7 +225,7 @@ const EditDemo = () => {
                     name="fullstack"
                     checked={formData.fullstack}
                     onChange={handleInput}
-                    style={{width:"24px",height:"24px",marginTop:"6px"}}
+                    style={{ width: "24px", height: "24px", marginTop: "6px" }}
                   />
                 </div>
 
@@ -232,6 +233,7 @@ const EditDemo = () => {
 
                 <Spacer height={40} />
 
+                {/*
                 <div className="col-md-12">
                   <label for="summary">
                     <b>Summary</b>
@@ -243,17 +245,32 @@ const EditDemo = () => {
                     onChange={handleInput}
                   ></textarea>
                 </div>
-
                 <Spacer height={40} />
+                */}
 
                 <div className="col-md-12">
                   <label for="description">
-                    <b>Full description</b>
+                    <b>Description (En)</b>
                   </label>
                   <textarea
                     className="form-control"
                     name="description"
                     value={formData.description}
+                    onChange={handleInput}
+                    style={{ height: "150px" }}
+                  ></textarea>
+                </div>
+
+                <Spacer height={40} />
+
+                <div className="col-md-12">
+                  <label for="description_it">
+                    <b>Description (It)</b>
+                  </label>
+                  <textarea
+                    className="form-control"
+                    name="description_it"
+                    value={formData.description_it}
                     onChange={handleInput}
                     style={{ height: "150px" }}
                   ></textarea>
@@ -268,7 +285,7 @@ const EditDemo = () => {
                   <b>Link</b>:
                 </div>
                 <div className="col-md-6 mt-3">
-                  <label for="slug">
+                  <label for="frontend">
                     <b>Frontend</b>
                   </label>
                   <input
@@ -280,7 +297,7 @@ const EditDemo = () => {
                   />
                 </div>
                 <div className="col-md-6 mt-3">
-                  <label for="slug">
+                  <label for="backend">
                     <b>Backend</b>
                   </label>
                   <input
@@ -290,9 +307,9 @@ const EditDemo = () => {
                     value={formData.backend}
                     onChange={handleInput}
                   />
-                </div>{" "}
+                </div>
                 <div className="col-md-6 mt-3">
-                  <label for="slug">
+                  <label for="github">
                     <b>Github</b>
                   </label>
                   <input
@@ -304,7 +321,7 @@ const EditDemo = () => {
                   />
                 </div>
                 <div className="col-md-6 mt-3">
-                  <label for="slug">
+                  <label for="githubBackend">
                     <b>Github backend</b>
                   </label>
                   <input
@@ -315,6 +332,19 @@ const EditDemo = () => {
                     onChange={handleInput}
                   />
                 </div>
+                <div className="col-md-6 mt-3">
+                  <label for="apk">
+                    <b>Apk</b>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="apk"
+                    value={formData.apk}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="col-md-6 mt-3"> </div>
               </div>
 
               <button
