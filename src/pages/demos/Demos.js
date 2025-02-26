@@ -399,6 +399,7 @@ const Demos = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
+          tecnology={tecnology}
         />
       )}
     </>

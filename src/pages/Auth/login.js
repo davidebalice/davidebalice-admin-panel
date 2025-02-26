@@ -7,6 +7,7 @@ import react_node from "../../assets/img/react_node.png";
 import { Context } from "../../context/UserContext";
 
 const Login = () => {
+  // Ottieni la funzione di login dal contesto
   const { login } = useContext(Context);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Login = () => {
     password: "",
   });
 
+  // Funzione per gestire il login
   const loginHandle = () => {
     axios
       .post(process.env.REACT_APP_API_BASE_URL + "/api/login", {
@@ -21,31 +23,32 @@ const Login = () => {
         password: formData.password,
       })
       .then((response) => {
-        console.log(response.data);
-
+        // Se il login ha successo
         if (response.data.status === "success") {
           Swal.fire("Login success", "", "success");
 
           const token = response.data.token;
           localStorage.setItem("authToken", token);
 
-          console.log("response.data.user");
-          console.log(response.data.user);
+          // Chiama la funzione di login dal contesto
           login(response.data.user);
 
+          // Naviga alla pagina principale
           navigate("/");
         } else {
+          // Se il login fallisce
           Swal.fire("Login failed", response.data.message, "error");
           localStorage.removeItem("authToken");
         }
       })
       .catch((error) => {
-        console.error("Errore durante il login:", error);
+        // Gestione degli errori
         Swal.fire("Login failed", "Data incorrect", "error");
         localStorage.removeItem("authToken");
       });
   };
 
+  // Funzione per gestire l'input del form
   const handleInput = (event) => {
     const { name, value } = event.target;
 
@@ -58,6 +61,7 @@ const Login = () => {
   function onChange(value) {
     console.log("Captcha value:", value);
   }
+
   return (
     <>
       <div className="loginBackground">
@@ -75,7 +79,7 @@ const Login = () => {
                     <b className="dashboardText1">
                       Demo admin panel
                       <br />
-                      for davidebalice.dev website
+                      for davidebalice.dev
                     </b>
                     <img
                       src={react_node}
@@ -120,11 +124,11 @@ const Login = () => {
                     password: 12345678
                   </div>
 
-                  {/*
+                  {/* 
                     <Link to="/forgot-password">
                     <p>Forgot Password</p>
                   </Link>
-                    */}
+                  */}
                 </div>
               </div>
             </div>

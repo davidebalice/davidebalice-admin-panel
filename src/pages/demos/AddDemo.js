@@ -70,8 +70,6 @@ const AddDemo = () => {
           },
         })
         .then((response) => {
-          console.log("response.data");
-          console.log(response.data);
           setResponseData(response.data.message);
           const owner = data.owner;
           setFormData({

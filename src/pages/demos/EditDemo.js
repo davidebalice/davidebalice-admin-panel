@@ -56,8 +56,6 @@ const EditDemo = () => {
       })
       .then((response) => {
         setFormData(response.data.demo);
-        console.log("response.data");
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -68,8 +66,6 @@ const EditDemo = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("demo");
-    console.log(demoMode);
     if (demoMode) {
       Swal.fire({
         title: "Demo mode",
@@ -91,10 +87,6 @@ const EditDemo = () => {
           }
         )
         .then((response) => {
-          console.log("response.data");
-          console.log(response.data);
-          console.log("response.data.status");
-          console.log(response.data.status);
           if (response.data.status === "success") {
             Swal.fire({
               title: "Demo updated",

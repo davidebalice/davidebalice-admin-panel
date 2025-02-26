@@ -121,8 +121,6 @@ const Gallery = () => {
         } else {
           setGallery(response.data.demo.gallery_backend);
         }
-        //handleGalleryType("frontend");
-        //SetForceUpdate((prevCount) => prevCount + 1);
       })
       .catch((error) => {
         console.error("Error:", error);

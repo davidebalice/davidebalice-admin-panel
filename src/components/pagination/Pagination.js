@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Pagination({ pageName, currentPage, totalPages, onPageChange }) {
+function Pagination({
+  pageName,
+  currentPage,
+  totalPages,
+  onPageChange,
+  tecnology,
+}) {
   const pageNumbers = [];
 
   for (let i = 1; i <= totalPages; i++) {
@@ -13,7 +19,11 @@ function Pagination({ pageName, currentPage, totalPages, onPageChange }) {
       <ul className="pagination">
         {pageNumbers.map((pageNumber) => (
           <li key={pageNumber}>
-            <Link to={`/${pageName}/?page=${pageNumber}`}>
+            <Link
+              to={`/${pageName}/?page=${pageNumber}${
+                tecnology !== null ? "&tecnology=" + tecnology : ""
+              }`}
+            >
               <button
                 onClick={() => onPageChange(pageNumber)}
                 className={
